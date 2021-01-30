@@ -5,7 +5,7 @@
 namespace lamp {
 
     /** Commands that can be sent to the lamp. */
-    enum Command {
+    enum LampCommand {
         LAMP_CMD_BRIGHT = 0x80,
         LAMP_CMD_DIM    = 0x81,
         LAMP_CMD_OFF    = 0x82,
@@ -18,5 +18,5 @@ namespace lamp {
     };
 
     /** Send a command to the lamp. */
-    void SendCommand(Command c);
+    void SendCommand(LampCommand c);
 }
