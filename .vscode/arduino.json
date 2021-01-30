@@ -1,0 +1,4 @@
+{
+    "board": "RedBear:nRF51822:nRF51822_NANO_32KB",
+    "sketch": "color_lamp\\color_lamp.ino"
+}
