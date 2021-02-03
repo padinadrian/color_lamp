@@ -1,5 +1,8 @@
 /**
- * color_lamp.ino
+ * Filename:    color_lamp.ino
+ * Author:      padin.adrian@gmail.com
+ * Date:        2021/01/29
+ * Description: Main file for Arduino sketch
  */
 
 /* ===== Includes ===== */

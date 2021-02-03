@@ -1,6 +1,8 @@
 /**
- * commands.cpp
- * Implementation
+ * Filename:    commands.cpp
+ * Author:      padin.adrian@gmail.com
+ * Date:        2021/01/29
+ * Description: Implementation of LED lamp commands
  */
 
 #include <stdint.h>
