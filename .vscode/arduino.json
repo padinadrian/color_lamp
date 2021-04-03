@@ -1,4 +1,6 @@
 {
-    "board": "RedBear:nRF51822:nRF51822_NANO_32KB",
-    "sketch": "color_lamp\\color_lamp.ino"
+    "board": "adafruit:nrf52:feather52840",
+    "sketch": "bluefruit_controller\\bluefruit_controller.ino",
+    "configuration": "softdevice=s140v6,debug=l0",
+    "port": "COM7"
 }
