@@ -1,3 +1,13 @@
+/**
+ * Bluefruit Controller Arduino Sketch
+ *
+ * Author:  Adrian Padin (padin.adrian@gmail.com)
+ * Date:    2021-04-03
+ *
+ * This sketch is based on an example sketch by Adafruit.
+ * The original example's license statement is preserved below.
+ */
+
 /*********************************************************************
  This is an example for our nRF52 based Bluefruit LE modules
 
@@ -12,20 +22,12 @@
  any redistribution
 *********************************************************************/
 
+/* ===== Includes ===== */
 #include <bluefruit.h>
-#include <Adafruit_NeoPixel.h>
 #include "commands.hpp"
 
-// Neopixel stuff
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(1, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
-enum {
-  BLACK  = 0x000000,
-  BLUE   = 0x0000ff,
-  GREEN  = 0x00ff00,
-  RED    = 0xff0000,
-  YELLOW = 0xffff00,
-  WHITE  = 0xffffff,
-};
+
+/* ===== Definitions ===== */
 
 // Button Mapping
 enum {
@@ -44,34 +46,14 @@ BLEUart bleuart;
 
 // Function prototypes for packetparser.cpp
 uint8_t readPacket (BLEUart *ble_uart, uint16_t timeout);
-float   parsefloat (uint8_t *buffer);
-void    printHex   (const uint8_t * data, const uint32_t numBytes);
 
 // Packet buffer
 extern uint8_t packetbuffer[];
 
-void setup(void)
-{
-    Bluefruit.begin();
-    Bluefruit.setTxPower(4);    // Check bluefruit.h for supported values
-    Bluefruit.setName("Adrian Color Lamp");
 
-    // Configure and start the BLE Uart service
-    bleuart.begin();
+/* ===== Functions ===== */
 
-    // Set up and start advertising
-    startAdvertising();
-
-    // Configured lamp control pin
-    pinMode(13, INPUT);
-    digitalWrite(13, LOW);
-
-    pixels.begin();
-    pixels.setBrightness(50);
-    pixels.fill(BLACK);
-    pixels.show();
-}
-
+/** Initialize BLE and start advertising as a peripherial. */
 void startAdvertising(void)
 {
     // Advertising packet
@@ -100,11 +82,32 @@ void startAdvertising(void)
     Bluefruit.Advertising.start(0);                // 0 = Don't stop advertising after n seconds
 }
 
+
 /**************************************************************************/
-/*!
-    @brief  Constantly poll for new command or response data
-*/
-/**************************************************************************/
+
+/* ===== SETUP ===== */
+
+void setup(void)
+{
+    Bluefruit.begin();
+    Bluefruit.setTxPower(4);    // Check bluefruit.h for supported values
+    Bluefruit.setName("Adrian Color Lamp");
+
+    // Configure and start the BLE Uart service
+    bleuart.begin();
+
+    // Set up and start advertising
+    startAdvertising();
+
+    // Configured lamp control pin
+    pinMode(13, INPUT);
+    digitalWrite(13, LOW);
+}
+
+
+/* ===== LOOP ===== */
+
+/** Constantly poll for new command or response data */
 void loop(void)
 {
     // Wait for new data to arrive
@@ -119,54 +122,42 @@ void loop(void)
             switch (button) {
                 case BLF_BUTTON_UP: {
                     lamp::SendCommand(lamp::LAMP_CMD_ON);
-                    bleuart.write("\nOn");
-                    //pixels.fill(WHITE);
-                    //pixels.show();
+                    bleuart.write("On\n");
                     break;
                 }
                 case BLF_BUTTON_DOWN: {
                     lamp::SendCommand(lamp::LAMP_CMD_OFF);
-                    bleuart.write("\nOff");
-                    //pixels.fill(BLACK);
-                    //pixels.show();
+                    bleuart.write("Off\n");
                     break;
                 }
                 case BLF_BUTTON_LEFT: {
                     lamp::SendCommand(lamp::LAMP_CMD_DIM);
-                    bleuart.write("\nDimmer");
+                    bleuart.write("Dimmer\n");
                     break;
                 }
                 case BLF_BUTTON_RIGHT: {
                     lamp::SendCommand(lamp::LAMP_CMD_BRIGHT);
-                    bleuart.write("\nBrighter");
+                    bleuart.write("Brighter\n");
                     break;
                 }
                 case BLF_BUTTON_1: {
                     lamp::SendCommand(lamp::LAMP_CMD_RED);
-                    bleuart.write("\nRed");
-                    //pixels.fill(RED);
-                    //pixels.show();
+                    bleuart.write("Red\n");
                     break;
                 }
                 case BLF_BUTTON_2: {
                     lamp::SendCommand(lamp::LAMP_CMD_GREEN);
-                    bleuart.write("\nGreen");
-                    //pixels.fill(GREEN);
-                    //pixels.show();
+                    bleuart.write("Green\n");
                     break;
                 }
                 case BLF_BUTTON_3: {
                     lamp::SendCommand(lamp::LAMP_CMD_YELLOW);
-                    bleuart.write("\nYellow");
-                    //pixels.fill(YELLOW);
-                    //pixels.show();
+                    bleuart.write("Yellow\n");
                     break;
                 }
                 case BLF_BUTTON_4: {
                     lamp::SendCommand(lamp::LAMP_CMD_WHITE);
-                    bleuart.write("\nWhite");
-                    //pixels.fill(WHITE);
-                    //pixels.show();
+                    bleuart.write("White\n");
                     break;
                 }
             }

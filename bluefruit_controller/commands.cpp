@@ -1,13 +1,16 @@
 /**
- * Filename:    commands.cpp
- * Author:      padin.adrian@gmail.com
- * Date:        2021/01/29
- * Description: Implementation of LED lamp commands
+ * Implementation of LED lamp commands
+ *
+ * Author:  padin.adrian@gmail.com
+ * Date:    2021-01-29
  */
 
+/* ===== Includes ===== */
 #include <stdint.h>
 #include <Arduino.h>
 #include "commands.hpp"
+
+/* ===== Functions ===== */
 
 // #define PIN_HIGH  (DDRB &= 0xFE)  // set to input
 // #define PIN_LOW   (DDRB |= 0x01)  // set to output

@@ -1,10 +1,9 @@
 /**
- * Filename:    commands.hpp
- * Author:      padin.adrian@gmail.com
- * Date:        2021/01/29
- * Description: Header for commands.cpp
+ * Header for commands.cpp
+ *
+ * Author:  padin.adrian@gmail.com
+ * Date:    2021-01-29
  */
-
 
 namespace lamp {
 
